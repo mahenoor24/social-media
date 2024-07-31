@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social media</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        function showUpdateForm(postId, name, content) {
+            document.getElementById('update-form').style.display = 'block';
+            document.getElementById('update-post-id').value = postId;
+            document.getElementById('update-name').value = name;
+            document.getElementById('update-content').value = content;
+        }
+    </script>
+</head>
+<body>
+    <div class='content'>
+        <div class="heading">Social Media Posting App</div>
+        <form action="/" method="post" class='h1--scalingSize'>
+            <input placeholder="Name" name="name">
+            <input placeholder="Post Content" name="post">
+            <input type="submit" value="Submit" class="button">
+        </form>
+        {% for post in posts %}
+        <div class="postcss">
+            {{ post[1] ~ ': ' ~ post[2] }}
+            <button onclick="showUpdateForm('{{ post[0] }}', '{{ post[1] }}', '{{ post[2] }}')">Update</button>
+            <form action="/delete/{{ post[0] }}" method="post" style="display:inline;">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+        {% endfor %}
+
+        <!-- Hidden Update Form -->
+        <div id="update-form" style="display:none;">
+            <form action="/update" method="post" class='h1--scalingSize'>
+                <input type="hidden" id="update-post-id" name="post_id">
+                <input placeholder="Name" id="update-name" name="name">
+                <input placeholder="Post Content" id="update-content" name="content">
+                <input type="submit" value="Update" class="button">
+            </form>
+        </div>
+
+        <input type='checkbox' id='switch'>
+        <label for='switch'><span><span class='icon'>→</span> switch bg</span></label>
+    </div>
+</body>
+</html>
