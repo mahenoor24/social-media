@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,36 +15,41 @@
         }
     </script>
 </head>
+
 <body>
     <div class='content'>
         <div class="heading">Social Media Posting App</div>
         <form action="/" method="post" class='h1--scalingSize'>
-            <input placeholder="Name" name="name">
-            <input placeholder="Post Content" name="post">
+            <input placeholder="Name" name="name" class="input">
+            <input placeholder="Post Content" name="post" class="input">
             <input type="submit" value="Submit" class="button">
         </form>
         {% for post in posts %}
         <div class="postcss">
-            {{ post[1] ~ ': ' ~ post[2] }}
-            <button onclick="showUpdateForm('{{ post[0] }}', '{{ post[1] }}', '{{ post[2] }}')">Update</button>
-            <form action="/delete/{{ post[0] }}" method="post" style="display:inline;">
-                <input type="submit" value="Delete">
+            <div class="post">
+                {{ post[1] ~ ': ' ~ post[2] }}
+            </div>
+                <button onclick="showUpdateForm('{{ post[0] }}', '{{ post[1] }}', '{{ post[2] }}')"
+                    class="button">Update</button>
+                    
+                <form action="/delete/{{ post[0] }}" method="post" style="display:inline;">
+                    <input type="submit" value="Delete" class="button">
+                </form>
+            
+        </div>
+        <div id="update-form" style="display:none;">
+            <form action="/update" method="post" class='h1--scalingSize'>
+                <input type="hidden" id="update-post-id" name="post_id" class="input">
+                <input placeholder="Name" id="update-name" name="name" class="input">
+                <input placeholder="Post Content" id="update-content" name="content" class="input">
+                <input type="submit" value="Update" class="button">
             </form>
         </div>
         {% endfor %}
 
-        <!-- Hidden Update Form -->
-        <div id="update-form" style="display:none;">
-            <form action="/update" method="post" class='h1--scalingSize'>
-                <input type="hidden" id="update-post-id" name="post_id">
-                <input placeholder="Name" id="update-name" name="name">
-                <input placeholder="Post Content" id="update-content" name="content">
-                <input type="submit" value="Update" class="button">
-            </form>
-        </div>
 
-        <input type='checkbox' id='switch'>
-        <label for='switch'><span><span class='icon'>→</span> switch bg</span></label>
+        
     </div>
 </body>
+
 </html>
